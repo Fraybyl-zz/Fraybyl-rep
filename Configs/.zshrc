@@ -23,7 +23,8 @@ alias chmod="chmod -c"
 alias chown="chown -c"
 alias mkdir="mkdir -v"
 alias pacman="sudo pacman"
-
+alias sudo dolphin="kdesu dbus-launch dolphin"
+alias y="yaourt -S"
 #exports
 export LANG="ru_UA.UTF-8"
 export MM_CHARSET="UTF-8"
