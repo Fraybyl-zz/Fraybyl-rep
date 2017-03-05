@@ -1,0 +1,12 @@
+# /dev/sda5
+UUID=e85678e5-c6a3-4841-b526-2c11da241a18	/         	btrfs     	rw,relatime,noatime,thread_pool=8,ssd,noauto,x-systemd.automount,discard,space_cache,subvolid=5,subvol=/	0 0
+
+# /dev/sda2
+UUID=E057-D872      	/boot     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro	0 2
+
+# /dev/sdb4
+UUID=ded1f20a-3a26-46df-b9e4-43d2c185fba2	/home     	btrfs     	rw,thread_pool=8,compress=lzo,autodefrag,noauto,x-systemd.automount,relatime,space_cache,noatime,subvolid=5,subvol=/	0 0
+
+#tmpfs /tmp
+tmpfs						/tmp		tmpfs		nodev,nosuid,size=8G				0 0
+
