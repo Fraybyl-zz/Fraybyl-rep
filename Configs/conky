@@ -1,0 +1,96 @@
+alignment top_right
+background no
+border_width 1
+cpu_avg_samples 8
+default_color d3d4eb
+default_outline_color d3d4eb
+default_shade_color d3d4eb
+disable_auto_reload no
+double_buffer yes
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+format_human_readable yes
+use_xft yes
+xftfont Terminus:size=11
+gap_x 1920
+gap_y 0
+maximum_width 400
+minimum_size 310 0
+net_avg_samples 2
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+own_window yes
+own_window_class Conky
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_argb_visual yes
+own_window_transparent yes
+own_window_type normal
+stippled_borders 0
+update_interval 2.0
+uppercase no
+use_spacer none
+show_graph_scale no
+show_graph_range no
+
+TEXT
+${font Terminus:bold:size=14}Информация о системе$font
+$hr
+${color d3d4eb}ОС:$color $alignr${exec grep 'PRETTY_NAME="' /etc/os-release | sed -e 's/PRETTY_NAME="//' | sed -e 's/"//g'}
+${color d3d4eb}Ядро:$color $alignr$sysname $kernel
+${color d3d4eb}Время работы:$color $alignr$uptime
+
+${font Terminus:bold:size=14}Загрузка системы$font
+$hr
+${color d3d4eb}Процессор:$color
+${color d3d4eb}Частота процессора:$color ${freq} Mhz
+${color d3d4eb}Ядро1:$color ${cpubar cpu1 7,255} $alignr${cpu cpu1}%
+${color d3d4eb}Ядро2:$color ${cpubar cpu2 7,255} $alignr${cpu cpu2}%
+${color d3d4eb}Ядро3:$color ${cpubar cpu3 7,255} $alignr${cpu cpu3}%
+${color d3d4eb}Ядро4:$color ${cpubar cpu4 7,255} $alignr${cpu cpu4}%
+${color d3d4eb}Ядро5:$color ${cpubar cpu5 7,255} $alignr${cpu cpu5}%
+${color d3d4eb}Ядро6:$color ${cpubar cpu6 7,255} $alignr${cpu cpu6}%
+${color d3d4eb}Ядро7:$color ${cpubar cpu7 7,255} $alignr${cpu cpu7}%
+${color d3d4eb}Ядро8:$color ${cpubar cpu8 7,255} $alignr${cpu cpu8}% 
+${cpugraph 20,310 -l} $alignr${voffset -14}$cpu%
+${voffset +14}${color d3d4eb}Память:$color
+${color d3d4eb}RAM:$color $alignr$mem / $memfree / $memmax
+${membar 7,310} $alignr$memperc%
+
+
+${font Terminus:bold:size=14}Температура$font
+$hr
+${color d3d4eb}Температура CPU:$color $alignr${acpitemp}°C
+${color d3d4eb}Температура GPU:$color $alignr${exec nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits} °C
+
+${font Terminus:bold:size=14}Nvidia GeForce GTX 960$font
+$hr
+${color d3d4eb}Частота ядра: $color  $alignr ${nvidia gpufreq}  Mhz
+${color d3d4eb}Частота памяти: $color $alignr ${nvidia memfreq} Mhz
+${color d3d4eb}Памяти используеться: ${alignr}${color d3d4eb}${execi 5 nvidia-settings -q [gpu:0]/UsedDedicatedGPUMemory -t} / ${exec nvidia-settings -q [gpu:0]/TotalDedicatedGPUMemory -t} MiB
+
+
+${font Terminus:bold:size=14}Потребление ресурсов$font
+$hr
+${color d3d4eb}Процессор:$color
+${color d3d4eb}Имя процесса$alignr PID CPU% MEM%$color
+${color FEFEFE}${top name 1} $alignr${top pid 1} ${top cpu 1}% ${top mem 1}%$color
+${color EEEEEE}${top name 2} $alignr${top pid 2} ${top cpu 2}% ${top mem 2}%$color
+${color DEDEDE}${top name 3} $alignr${top pid 3} ${top cpu 3}% ${top mem 3}%$color
+${color CECECE}${top name 4} $alignr${top pid 4} ${top cpu 4}% ${top mem 4}%$color
+${color BEBEBE}${top name 5} $alignr${top pid 5} ${top cpu 5}% ${top mem 5}%$color
+${color d3d4eb}Память:$color
+${color d3d4eb}Имя процесса$alignr PID CPU% MEM%$color
+${color FEFEFE}${top_mem name 1} $alignr${top_mem pid 1} ${top_mem cpu 1}% ${top_mem mem 1}%$color
+${color EEEEEE}${top_mem name 2} $alignr${top_mem pid 2} ${top_mem cpu 2}% ${top_mem mem 2}%$color
+${color DEDEDE}${top_mem name 3} $alignr${top_mem pid 3} ${top_mem cpu 3}% ${top_mem mem 3}%$color
+${color CECECE}${top_mem name 4} $alignr${top_mem pid 4} ${top_mem cpu 4}% ${top_mem mem 4}%$color
+${color BEBEBE}${top_mem name 5} $alignr${top_mem pid 5} ${top_mem cpu 5}% ${top_mem mem 5}%$color
+${voffset +5}${color d3d4eb}Диски:$color
+${color d3d4eb}/$color $alignr${fs_used /} / ${fs_free /} / ${fs_size /}
+${fs_bar 7,310 /} $alignr${fs_used_perc /}%
+${color d3d4eb}/home$color $alignr${fs_used /home} / ${fs_free /home} / ${fs_size /home}
+${fs_bar 7,310 /home} $alignr${fs_used_perc /home}%
