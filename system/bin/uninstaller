@@ -1,0 +1,77 @@
+#!/system/bin/sh
+
+#============ Copyright (C) 2014 Salah Abouabdallah(Slaid480)===========#
+ 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+ 
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+#=======================================================================#
+
+clear
+   echo ""
+   echo "Fly-On Mod uninstaller,please wait..."
+sleep 3
+   echo ""
+   echo "Mounting /system partition..."
+sleep 1
+busybox mount -o remount,rw /system
+   echo ""
+   echo "Removing scripts,please wait..."
+sleep 5
+
+busybox rm -rf /data/Fly-On
+busybox rm -rf /system/etc/entropy
+busybox rm -rf /system/etc/Entropy_script
+busybox rm -rf /system/etc/rngd
+busybox rm -rf /system/etc/GENERAL_PUBLIC_LICENSE_AGREEMENT
+busybox rm -f /system/etc/hosts
+busybox rm -rf /system/etc/sysctl.conf
+busybox rm -f /system/su.d/92cleaner
+busybox rm -f /system/su.d/93kill_media_server
+busybox rm -f /system/su.d/94Governor_tweaks
+busybox rm -f /system/su.d/09sdcardspeedfix
+busybox rm -f /system/su.d/98fly_engine
+busybox rm -f /system/su.d/darky_zipalign
+busybox rm -f /system/su.d/sqlite_optimize
+busybox rm -f /system/su.d/zipaligndata
+busybox rm -f /system/su.d/zipalign
+busybox rm -f /system/su.d/ram_manager
+busybox rm -f /system/su.d/91touchscreen
+busybox rm -f /system/su.d/EXT4_tweak
+busybox rm -f /system/su.d/remounti9300
+busybox rm -f /system/su.d/Entropy_engine
+busybox rm -f /system/su.d/entropy
+busybox rm -f /system/su.d/09RW_turbo
+busybox rm -f /system/su.d/fstrim
+   echo ""
+   echo "Removing binaries and libraries,please wait..."
+sleep 5
+
+busybox rm -f /system/bin/entropy_off
+busybox rm -f /system/bin/entropy_on
+busybox rm -f /system/bin/Entropy_engine
+busybox rm -f /system/bin/tune2fs
+busybox rm -f /system/xbin/openvpn
+busybox rm -f /system/xbin/zipalign
+busybox rm -f /system/xbin/sqlite3
+busybox rm -f /system/xbin/rngd
+busybox rm -f /system/xbin/entro
+busybox rm -f /system/lib/libncurses.so
+
+   echo ""
+   echo "Fly-On Mod has been completely removed from your phone..."
+sleep 3
+   echo ""
+   echo "deleting uninstaller script from /bin directory"
+sleep 2
+   echo ""
+   echo "Please reboot your device to remove Fly-on effect now!"
+busybox rm -f /system/bin/uninstaller

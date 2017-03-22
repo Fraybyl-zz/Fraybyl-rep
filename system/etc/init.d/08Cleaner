@@ -1,0 +1,117 @@
+#!/system/bin/sh
+# Keep you'r system in clean ;)
+
+
+#============ Copyright (C) 2013 Salah Abouabdallah(Slaid480)===========#
+ 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+ 
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+#=======================================================================#
+
+#Interval between cleaner runs,in seconds, 86400=24 hours
+
+
+LOG_FILE=/data/local/MG_Cleaner.txt
+    if [ -e $LOG_FILE ]; then
+        rm $LOG_FILE;
+    fi;
+
+
+# the preface
+echo "==========================
+      #  Cleaner script  #
+
+system information:
+vendor   : $( getprop ro.product.brand )
+model    : $( getprop ro.product.model )
+ROM      : $( getprop ro.build.display.id )
+
+running the script...
+start at:
+$( date +"%m-%d-%Y %H:%M:%S" )
+==========================" >> $LOG_FILE;
+
+# cleaner
+busybox rm -f /cache/*.apk 2 > /dev/null
+busybox rm -f /cache/*.tmp 2 > /dev/null
+busybox rm -f /cache/*.log 2 > /dev/null
+busybox rm -f /cache/*.txt 2 > /dev/null
+busybox rm -f /cache/recovery/* 2 > /dev/null
+busybox rm -f /data/*.log 2 > /dev/null
+busybox rm -f /data/*.txt 2 > /dev/null
+busybox rm -f /data/anr/*.log 2 > /dev/null
+busybox rm -f /data/anr/*.txt 2 > /dev/null
+busybox rm -f /data/backup/pending/*.tmp 2 > /dev/null
+busybox rm -f /data/cache/*.* 2 > /dev/null
+busybox rm -f /data/dalvik-cache/*.apk 2 > /dev/null
+busybox rm -f /data/dalvik-cache/*.tmp 2 > /dev/null
+busybox rm -f /data/dalvik-cache/*.log 2 > /dev/null
+busybox rm -f /data/dalvik-cache/*.txt 2 > /dev/null
+busybox rm -f /data/data/*.log 2 > /dev/null
+busybox rm -f /data/data/*.txt 2 > /dev/null
+busybox rm -f /data/log/*.log 2 > /dev/null
+busybox rm -f /data/log/*.txt 2 > /dev/null
+busybox rm -f /data/local/*.apk 2 > /dev/null
+busybox rm -f /data/local/*.log 2 > /dev/null
+#busybox rm -f /data/local/*.txt 2 > /dev/null
+busybox rm -f /data/local/tmp/*.log 2 > /dev/null
+busybox rm -f /data/local/tmp/*.txt 2 > /dev/null
+busybox rm -f /data/last_alog/*.log 2 > /dev/null
+busybox rm -f /data/last_alog/*.txt 2 > /dev/null
+busybox rm -f /data/last_kmsg/*.log 2 > /dev/null
+busybox rm -f /data/last_kmsg/*.txt 2 > /dev/null
+busybox rm -f /data/mlog/* 2 > /dev/null
+busybox rm -f /data/tombstones/* 2 > /dev/null
+busybox rm -f /data/tombstones/*.* 2 > /dev/null
+busybox rm -f /data/system/*.log 2 > /dev/null
+busybox rm -f /data/system/*.txt 2 > /dev/null
+busybox rm -f /data/system/dropbox/* 2 > /dev/null
+busybox rm -f /data/system/dropbox/*.* 2 > /dev/null
+busybox rm -f /data/system/usagestats/*.log 2 > /dev/null
+busybox rm -f /data/system/usagestats/*.txt 2 > /dev/null
+busybox rm -rf /sd*/LOST.DIR 2 > /dev/null
+
+export sampling_rate=10000
+export up_threshold=80
+export READ_AHEAD_KB=3072
+
+echo "memory cleaner--------[OK]" >> $LOG_FILE;
+
+if [ -e /data/anr/*.* ]; then
+  echo "-anr not cleaned" >> $LOG_FILE; else
+  echo "-anr cleaned" >> $LOG_FILE
+fi;
+if [ -e /data/local/tmp/*.* ]; then
+  echo "-local/tmp not cleaned" >> $LOG_FILE; else
+  echo "-local/tmp cleaned" >> $LOG_FILE
+fi;
+if [ -e /data/cache/*.* ]; then
+  echo "-cache not cleaned" >> $LOG_FILE; else
+  echo "-cache cleaned" >> $LOG_FILE
+fi;
+if [ -e /data/last_log/*.* ]; then
+  echo "-log not cleaned" >> $LOG_FILE; else
+  echo "-log cleaned" >> $LOG_FILE
+fi;
+if [ -e /data/tombstones/*.* ]; then
+  echo "-tombstones not cleaned" >> $LOG_FILE; else
+  echo "-tombstones cleaned" >> $LOG_FILE
+fi;
+
+# end
+echo "==========================
+done at:
+$( date +"%m-%d-%Y %H:%M:%S" )
+ Your $( getprop ro.product.model ) is cleaned !!" >> $LOG_FILE;
+
+
+

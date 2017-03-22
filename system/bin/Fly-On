@@ -1,0 +1,279 @@
+#!/system/bin/sh
+
+#============ Copyright (C) 2014 Salah Abouabdallah(Slaid480)===========#
+ 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+ 
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+#=======================================================================#
+
+clear
+   echo ""
+   echo "==========================================="
+   echo "==         Fly-On Mod Main script        =="
+   echo "==           Slaid480@XDA 2014           =="
+   echo "==========================================="
+sleep 2
+   echo ""
+   echo "checking if files are correctly installed,please wait..."
+sleep 2
+   echo ""
+   echo "Checking for init.d folder..."
+sleep 1
+if [ -e /system/su.d ]; then
+   echo ""
+   echo "init.d folder was found..."
+sleep 1
+else
+   echo ""
+   echo "init.d flder was not found,please try reinstalling it then re-flashing Fly-On Mod"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for Entropy_engine binary..."
+sleep 1
+if [ -e /system/bin/Entropy_engine ]; then
+   echo ""
+   echo "Entropy_engine is installed..."
+sleep 1
+else
+   echo ""
+   echo "Entropy_engine binary was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+
+   echo ""
+   echo "Checking for uninstaller binary..."
+sleep 1
+if [ -e /system/bin/uninstaller ]; then
+   echo ""
+   echo "uninstaller binary is installed..."
+sleep 1
+else
+   echo ""
+   echo "uninstaller binary was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for openvpn binary..."
+sleep 1
+if [ -e /system/xbin/openvpn ]; then
+   echo ""
+   echo "openvpn binary is installed..."
+sleep 1
+else
+   echo ""
+   echo "openvpn binary was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for zipalign binary..."
+sleep 1
+if [ -e /system/xbin/zipalign ]; then
+   echo ""
+   echo "zipalign binary is installed..."
+sleep 1
+else
+   echo ""
+   echo "zipalign binary was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for entro binary..."
+sleep 1
+if [ -e /system/xbin/entro ]; then
+   echo ""
+   echo "entro binary is installed..."
+sleep 1
+else
+   echo ""
+   echo "entro binary was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for rngd binary..."
+sleep 1
+if [ -e /system/xbin/rngd ]; then
+   echo ""
+   echo "rngd binary is installed..."
+sleep 1
+else
+   echo ""
+   echo "rngd binary was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for Entropy_engine script..."
+sleep 1
+if [ -e /system/su.d/Entropy_engine ]; then
+   echo ""
+   echo "Entropy_engine script is installed..."
+sleep 1
+else
+   echo ""
+   echo "Entropy_engine script was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+echo ""
+   echo "Checking for Entropy_engine secondary script..."
+sleep 1
+if [ -e /system/etc/Entropy_script/Entropy_engine ]; then
+   echo ""
+   echo "Entropy_engine secondary script is installed..."
+sleep 1
+else
+   echo ""
+   echo "Entropy_engine secondary script was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for hosts script..."
+sleep 1
+if [ -e /system/etc/hosts ]; then
+   echo ""
+   echo "hosts script is installed..."
+sleep 1
+else
+   echo ""
+   echo "hosts script was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for 09RW_turbo script..."
+sleep 1
+if [ -e /system/su.d/09RW_turbo ]; then
+   echo ""
+   echo "09RW_turbo script is installed..."
+sleep 1
+else
+   echo ""
+   echo "09RW_turbo script was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+echo ""
+   echo "Checking for 91touchscreen script..."
+sleep 1
+if [ -e /system/su.d/91touchscreen ]; then
+   echo ""
+   echo "91touchscreen script is installed..."
+sleep 1
+else
+   echo ""
+   echo "91touchscreen script was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+
+   echo ""
+   echo "Checking for 92cleaner script..."
+sleep 1
+if [ -e /system/su.d/92cleaner ]; then
+   echo ""
+   echo "92cleaner script is installed..."
+sleep 1
+else
+   echo ""
+   echo "92cleaner script was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for 94Governor_tweaks script..."
+sleep 1
+if [ -e /system/su.d/94Governor_tweaks ]; then
+   echo ""
+   echo "94Governor_tweaks script is installed..."
+sleep 1
+else
+   echo ""
+   echo "94Governor_tweaks script was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for 98fly_engine script..."
+sleep 1
+if [ -e /system/su.d/98fly_engine ]; then
+   echo ""
+   echo "98fly_engine script is installed..."
+sleep 1
+else
+   echo ""
+   echo "98fly_engine script was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for ram_manager script..."
+sleep 1
+if [ -e /system/su.d/ram_manager ]; then
+   echo ""
+   echo "ram_manager script is installed..."
+sleep 1
+else
+   echo ""
+   echo "ram_manager was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for sqlite_optimize script..."
+sleep 1
+if [ -e /system/su.d/sqlite_optimize ]; then
+   echo ""
+   echo "sqlite_optimize script is installed..."
+sleep 1
+else
+   echo ""
+   echo "sqlite_optimize was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for zipalign script..."
+sleep 1
+if [ -e /system/su.d/zipalign ]; then
+   echo ""
+   echo "zipalign script is installed..."
+sleep 1
+else
+   echo ""
+   echo "zipalign was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking for GPL License..."
+sleep 1
+if [ -e /system/etc/GENERAL_PUBLIC_LICENSE_AGREEMENT ]; then
+   echo ""
+   echo "GPL License is installed..."
+sleep 1
+else
+   echo ""
+   echo "GPL License was not found,please Re-flash Fly-On Mod then try again!"
+sleep 1
+fi
+
+   echo ""
+   echo "Checking Fly-On Mod files is done!"
+sleep 5
+exit 0

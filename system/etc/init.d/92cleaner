@@ -1,0 +1,77 @@
+#!/system/bin/sh
+# 92cleaner For Fly-On Mod by Slaid480@XDA
+# Big Thank to CALIBAN666@XDA
+
+
+#============ Copyright (C) 2014 Salah Abouabdallah(Slaid480)===========#
+ 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+ 
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+#=======================================================================#
+
+#Interval between cleaner runs,in seconds, 172800=48 hours
+RUN_EVERY=172800
+
+
+FLY=/data/Fly-On/08cleaner.log
+
+busybox rm -f $FLY
+busybox touch $FLY
+
+echo "# Fly-On Mod™ LOGGING ENGINE" | tee -a $FLY
+echo "" | tee -a $FLY
+echo "$( date +"%m-%d-%Y %H:%M:%S" ) Cleaner script is running..." | tee -a $FLY;
+
+
+# cleaner
+busybox rm -f /data/anr/*.*
+busybox rm -f /data/cache/*.*
+busybox rm -f /data/log/*.*
+busybox rm -f /data/local/tmp/*.*
+busybox rm -f /data/mlog/*
+busybox rm -f /data/tombstones/*
+busybox rm -f /data/backup/pending/*
+busybox rm -f /data/system/dropbox/*
+chmod 700 /data/system/dropbox
+busybox rm -f /data/system/usagestats/*
+busybox chmod 700 /data/system/usagestats
+
+export sampling_rate=10000
+export up_threshold=80
+
+
+echo "memory cleaner--------[OK]" | tee -a $FLY;
+
+if [ -e /data/anr/*.* ]; then
+  echo "-anr not cleaned" | tee -a $FLY; else
+  echo "-anr cleaned" | tee -a $FLY
+fi;
+if [ -e /data/local/tmp/*.* ]; then
+  echo "-local/tmp not cleaned" | tee -a $FLY; else
+  echo "-local/tmp cleaned" | tee -a $FLY
+fi;
+if [ -e /data/cache/*.* ]; then
+  echo "-cache not cleaned" | tee -a $FLY; else
+  echo "-cache cleaned" | tee -a $FLY
+fi;
+if [ -e /data/last_log/*.* ]; then
+  echo "-log not cleaned" | tee -a $FLY; else
+  echo "-log cleaned" | tee -a $FLY
+fi;
+if [ -e /data/tombstones/*.* ]; then
+  echo "-tombstones not cleaned" | tee -a $FLY; else
+  echo "-tombstones cleaned" | tee -a $FLY
+fi;
+
+
+echo "" | tee -a $FLY
+echo "$( date +"%m-%d-%Y %H:%M:%S" ) All junk directories are now cleaned,Thanks to -CALIBAN666@XDA-!" | tee -a $FLY;

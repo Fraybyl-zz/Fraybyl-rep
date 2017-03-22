@@ -1,0 +1,171 @@
+#!/system/bin/sh
+# ===========================================
+# ===========================================
+# =======Entropy engine | Fly-On Mod� =======
+# ========== By Slaid480@XDA 2014 ===========
+# ===========================================
+# ===========================================
+
+
+#============ Copyright (C) 2014 Salah Abouabdallah(Slaid480)===========#
+ 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+ 
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+#=======================================================================#
+# Big thank to Ryuinferno @ XDA 2013
+
+mount -o rw,remount /system
+
+# Variables
+first=/system/etc/Entropy_script
+second=/system/su.d
+skin="=========================================="
+
+
+   clear
+
+   echo $skin
+   echo ""
+   echo " Entropy engine Menu"
+   echo ""
+   echo $skin  
+ 
+   id=`id`; id=`echo ${id#*=}`; id=`echo ${id%%\(*}`; id=`echo ${id%% *}`
+   if [ "$id" != "0" ] && [ "$id" != "root" ]; 
+   then
+   sleep 2
+   echo $skin
+   echo ""
+   echo "You are NOT running as root..."
+   echo ""
+   echo $skin
+   sleep 1
+   echo ""
+   echo "Please type 'su' first before typing 'Entropy_engine'..."
+   echo ""
+   exit
+   fi
+
+   pgrep rngd > /dev/null
+   test=$?
+   if [ $test -ne 1 ]; then
+   Entropy_engine_switch="On"
+   else
+   Entropy_engine_switch="Off"
+   fi
+   
+   if [ -e $second/Entropy_engine ]; then
+   Entropy_engine_boot="Yes"
+   else
+   Entropy_engine_boot="No"
+   fi
+
+   sleep 1
+   echo $skin
+   echo ""
+   echo "Entropy engine: $Entropy_engine_switch"
+   echo "Run at boot?: $Entropy_engine_boot"
+   echo ""
+   echo $skin
+   sleep 1
+
+   echo ""
+   echo "Menu:"
+   echo "1. Entropy engine on/off"
+   echo "2. Run at boot on/off"
+   echo "3. Monitor entropy_avail"
+   echo "4. Exit"
+   echo ""
+
+   echo -n "Please select an option [1-4]: "
+   read option 
+
+   if [ $option -eq 1 ]; then
+   if [ $test -ne 1 ]; then
+    echo "Switching entropy engine off..."
+	sleep 1
+	pkill rngd
+    echo "Done!"
+	echo "Please Press enter to continue..."
+	read enterKey
+	Entropy_engine
+   else
+    echo "Switching Entropy engine on..."
+	if pgrep qrngd > /dev/null; then
+	  sleep 1
+      echo "qrngd already running! Entropy engine will not be started!"
+	  echo ""
+	  echo "Please Press enter to continue..."
+	  read enterKey
+	  Entropy_engine
+	else
+	  if [ -e /system/bin/qrngd -o -e /system/xbin/qrngd ]; then
+	    sleep 1
+        echo "qrngd found in /system! Entropy engine will not be started!"
+		echo ""
+		echo "Please Press enter to continue..."
+		read enterKey
+		Entropy_engine
+	  else
+	    rngd -t 2 -T 1 -s 256 --fill-watermark=80%
+        sleep 2
+        echo -8 > /proc/$(pgrep rngd)/oom_adj
+        renice 5 `pidof rngd`
+        echo "Done!"
+	    echo "Please Press enter to continue..."
+	    read enterKey
+	    Entropy_engine
+	  fi
+	fi
+   fi
+ 
+   elif [ $option -eq 2 ]; then
+   if [ -e $second/Entropy_engine ]; then
+    echo "Disabling init.d script..."
+	sleep 1
+	rm $second/Entropy_engine
+    echo "Done!"
+	echo "Please Press enter to continue..."
+	read enterKey
+	Entropy_engine
+   else
+    echo "Enabling init.d script..."
+	sleep 1
+	cp $first/Entropy_engine $second/Entropy_engine
+	chmod 777 $second/Entropy_engine
+    echo "Done!"
+	echo "Please Press enter to continue..."
+	read enterKey
+	Entropy_engine
+   fi
+ 
+   elif [ $option -eq 3 ]; then
+   clear
+   sleep 1
+   entro
+
+   elif [ $option -eq 4 ]; then
+   mount -o ro,remount /system
+   sleep 1
+   echo $skin
+   echo ""
+   echo " Entropy engine Menu"
+   echo ""
+   echo $skin
+   exit
+ 
+   else
+   echo "Invalid command,try again..."
+   sleep 1
+   Entropy_engine
+   fi
+ 

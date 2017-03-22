@@ -1,0 +1,101 @@
+#!/system/bin/sh
+# 
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#=======================================================================#
+
+mount -o remount,rw /
+mount -o remount,rw rootfs
+mount -o remount,rw /system
+busybox mount -o remount,rw /
+busybox mount -o remount,rw rootfs
+busybox mount -o remount,rw /system
+
+#I/O scheduler
+echo "noop" > /sys/block/mmcblk0/queue/scheduler
+echo "noop" > /sys/block/mmcblk1/queue/scheduler
+
+LOG_FILE=/data/local/MG_kernel_tweaks.txt
+
+busybox rm -f $LOG_FILE
+busybox touch $LOG_FILE
+
+busybox echo "# Start log at :" | tee -a $LOG_FILE
+busybox echo "$( date +"%m-%d-%Y %H:%M:%S" )" | tee -a $LOG_FILE
+busybox echo "" | tee -a $LOG_FILE
+busybox echo "Calculating RAM & adding kernel tweaks..." | tee -a $LOG_FILE
+
+# Calculations
+mem=`awk '/MemTotal/{print $2}' /proc/meminfo`
+totmem=`(echo - | awk -v A=$mem '{print A*1024;}')`
+max=`(echo - | awk -v A=$totmem '{print A*75/100;}')`
+page_size=`cat /proc/sys/kernel/shmmni`
+all=`(echo - | awk -v A=$totmem -v B=$page_size '{print A*80/100/B}')`
+RAM=$((`awk '/MemTotal/{print $2}' /proc/meminfo`/1024))
+filemax=$(($RAM/4*256))
+msgmni=$(($RAM*1024/1024))
+
+# Kernel parameters setup
+if [ -e /proc/sys/kernel/shmall ]; then 
+        busybox echo $all > /proc/sys/kernel/shmall
+fi
+if [ -e /proc/sys/kernel/shmmax ]; then 
+        busybox echo $max > /proc/sys/kernel/shmmax
+fi
+if [ -e /proc/sys/kernel/shmmni ]; then 
+        busybox echo "1024" > /proc/sys/kernel/shmmni
+fi
+if [ -e /proc/sys/kernel/msgmni ]; then 
+       busybox echo $msgmni > /proc/sys/kernel/msgmni
+fi
+if [ -e /proc/sys/kernel/msgmnb ]; then 
+       busybox echo "16384" > /proc/sys/kernel/msgmnb
+fi
+if [ -e /proc/sys/kernel/msgmax ]; then 
+       busybox echo "8192" > /proc/sys/kernel/msgmax
+fi
+
+busybox echo "Kernel parameters are updated" | tee -a $LOG_FILE
+
+#Dynamic fsync
+if [ -e /sys/kernel/dyn_fsync/Dyn_fsync_active ]; then
+       busybox echo "1" > /sys/kernel/dyn_fsync/Dyn_fsync_active
+fi
+
+if [ /sys/kernel/dyn_fsync/Dyn_fsync_active=1 ]; then
+busybox echo "Dyn_fsync enabled" | tee -a $LOG_FILE
+else
+busybox echo "Dyn_fsync doesn't exist on your kernel" | tee -a $LOG_FILE
+fi
+
+#FS tweak
+if [ -e /proc/sys/fs/lease-break-time ]; then 
+	     busybox echo "5" > /proc/sys/fs/lease-break-time
+fi
+if [ -e /proc/sys/fs/inotify/max_queued_events ]; then 
+        busybox echo "32000" > /proc/sys/fs/inotify/max_queued_events
+fi
+if [ -e /proc/sys/fs/inotify/max_user_instances ]; then 
+        busybox echo "256" > /proc/sys/fs/inotify/max_user_instances
+fi
+if [ -e /proc/sys/fs/inotify/max_user_watches ]; then 
+        busybox echo "10240" > /proc/sys/fs/inotify/max_user_watches
+fi
+if [ -e /proc/sys/fs/file-max ]; then
+        busybox echo $filemax > /proc/sys/fs/file-max
+fi
+
+busybox echo "File system parameters are updated" | tee -a $LOG_FILE
+
+busybox echo "" | tee -a $LOG_FILE
+busybox echo "$( date +"%m-%d-%Y %H:%M:%S" ) All  done!!." | tee -a $LOG_FILE
+
+
+
