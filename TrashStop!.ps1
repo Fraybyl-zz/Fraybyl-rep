@@ -22,7 +22,6 @@ Remove-AppxPackage Microsoft.Services.Store.Engagement_10.0.1610.0_x64__8wekyb3d
 # Microsoft Services
 stop-service NvTelemetryContainer # Nvidia telemetry
 stop-service SkypeUpdate # Skype
-stop-service SysMain # SuperPrefetch
 stop-service XboxGipSvc # Xbox
 stop-service xbgm
 stop-service WinDefend
